@@ -4,7 +4,6 @@ class CreateCommitters < ActiveRecord::Migration
       t.string :email
       t.integer :additions, default: 0
       t.integer :deletions, default: 0
-      t.references :repository
       
       t.timestamps
     end
