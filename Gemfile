@@ -31,6 +31,7 @@ gem 'octokit'
 # inplace git management
 gem 'grit'
 
+gem 'pg'
 
 group :development, :test do
 	gem "shoulda-matchers"

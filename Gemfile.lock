@@ -108,6 +108,7 @@ GEM
       hashie (~> 1.2)
       multi_json (~> 1.3)
       netrc (~> 0.7.7)
+    pg (0.14.1)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
     puma (2.0.0.b4)
@@ -222,6 +223,7 @@ DEPENDENCIES
   less-rails-bootstrap
   libv8 (~> 3.11.8)
   octokit
+  pg
   puma (>= 2.0.0.b4)
   rails (= 4.0.0.beta1)
   rspec-rails

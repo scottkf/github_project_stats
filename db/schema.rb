@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130226190836) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "commits", force: true do |t|
     t.integer  "committer_id"
     t.integer  "repository_id"
@@ -29,9 +32,8 @@ ActiveRecord::Schema.define(version: 20130226190836) do
 
   create_table "committers", force: true do |t|
     t.string   "email"
-    t.integer  "additions",     default: 0
-    t.integer  "deletions",     default: 0
-    t.integer  "repository_id"
+    t.integer  "additions",  default: 0
+    t.integer  "deletions",  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
