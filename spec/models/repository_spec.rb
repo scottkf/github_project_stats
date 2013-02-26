@@ -4,7 +4,6 @@ describe Repository do
 	let(:repo) {FactoryGirl.build(:repository)}
 
 	it {should validate_presence_of(:url)}
-	it {should validate_presence_of(:complete)}
 
 	it '.github sets up a github repo link' do
 		repo.github.should == "#{repo.author}/#{repo.name}"
@@ -18,14 +17,14 @@ describe Repository do
 		repo.author.should == nil
 	end
 
-	describe ".valid_repo?" do
+	describe ".valid_url?" do
 		it 'is not false when the repo is valid' do
 			Octokit.stub(:repo).and_return({})
-			repo.valid?.should_not == false
+			repo.valid_url?.should_not == false
 		end
 		it 'is false otherwise'  do
 			Octokit.stub(:repo).and_return(false)
-			repo.valid?.should == false
+			repo.valid_url?.should == false
 		end
 	end
 

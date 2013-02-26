@@ -2,7 +2,7 @@ class Repository < ActiveRecord::Base
 	has_many :committers, :through => :commits
 	has_many :commits, :dependent => :destroy
 
-	validates_presence_of :complete, :url
+	validates_presence_of :url
 	attr_accessor :name, :author
 
 
@@ -38,7 +38,7 @@ class Repository < ActiveRecord::Base
 		author ||= a
 	end
 
-	def valid?
+	def valid_url?
 		Octokit.repo(github) rescue false
 	end
 
