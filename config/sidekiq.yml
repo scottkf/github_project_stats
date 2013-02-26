@@ -1,0 +1,5 @@
+---
+:verbose: false
+:pidfile: ./tmp/pids/sidekiq.pid
+:namespace: github_project_stats
+:concurrency: 10
