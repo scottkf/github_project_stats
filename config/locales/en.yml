@@ -11,3 +11,4 @@ en:
   processing_info: 'Still processing, please wait and the page will reload when finished.'
   home: 'Home'
   github_link: 'Github link'
+  ratelimit_exhausted: 'Your ratelimit for the github api has been exhausted, try again in 60 minutes.'

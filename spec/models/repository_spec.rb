@@ -19,9 +19,17 @@ describe Repository do
 		repo.url.should == "scottkf/ability-js"
 	end
 
-	it 'is valid only if repo exists' do
-		repo = FactoryGirl.build(:invalid_repository)
-		repo.should_not be_valid
+	describe '.valid?' do
+		context 'when not valid' do
+			it 'repo doesnt exist' do
+				repo = FactoryGirl.build(:invalid_repository)
+				repo.should_not be_valid
+			end
+			it 'when the rate limit is hit' do
+				repo = FactoryGirl.build(:rate_limit)
+				repo.should_not be_valid
+			end
+		end
 	end
 
 	describe "#parse" do

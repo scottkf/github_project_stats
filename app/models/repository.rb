@@ -48,8 +48,13 @@ class Repository < ActiveRecord::Base
 	end
 
 	def validate_repo
-		status = Octokit.repo(github) rescue false
-		errors.add(:url, I18n.t(:invalid_repo)) unless status
+		limit = Octokit.rate_limit rescue false
+		if !limit
+			errors.add(:url, I18n.t(:ratelimit_exhausted))
+		else
+			status = Octokit.repo(github) rescue false
+			errors.add(:url, I18n.t(:invalid_repo)) unless status
+		end
 	end
 
 end

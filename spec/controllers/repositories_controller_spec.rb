@@ -5,6 +5,7 @@ describe RepositoriesController do
 		context "when repo is invalid" do
 			it 'will not create' do
 				Octokit.stub(:repo).and_return false
+				Octokit.stub(:rate_limit).and_return(true)
 				expect{post :create, repository: {url: 'test'}}.to_not change{Repository.count}.from(0).to(1)
 			end
 		end
@@ -21,6 +22,7 @@ describe RepositoriesController do
 		context "when repo is valid but unprocessed" do
 			it 'runs in the background' do
 				Octokit.stub(:repo).and_return({})
+				Octokit.stub(:rate_limit).and_return(true)
 				expect {
 					post :create, repository: {url: 'valid/url'}
 				}.to change(RepositoryWorker.jobs, :size).by(1)
