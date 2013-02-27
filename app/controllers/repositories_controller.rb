@@ -15,7 +15,7 @@ class RepositoriesController < ApplicationController
 		# if it's not valid, show the error
 		return render :index if !@repository.complete && !@repository.persisted?
 		# perform analytics if it hasn't been completed
-		RepositoryWorker.perform_async(@repository.id) unless @repository.complete
+		RepositoryWorker.perform_async(@repository.id) if !@repository.complete && !Stats.processing(@repository.id)
 		redirect_to @repository
 	end
 

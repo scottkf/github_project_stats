@@ -15,6 +15,5 @@ README
 
 #### Todo
 
-* Add a flag or check redis to see if the thing is currently being processed
 * Remove old repos
 * Add a progress indicator which can be received through the git class

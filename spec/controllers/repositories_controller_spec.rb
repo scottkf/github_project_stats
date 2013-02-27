@@ -20,6 +20,14 @@ describe RepositoriesController do
 			end
 		end
 		context "when repo is valid but unprocessed" do
+			it 'only runs if not currently being processed' do
+				Stats.stub(:processing).and_return(true)
+				Octokit.stub(:repo).and_return({})
+				Octokit.stub(:rate_limit).and_return(true)
+				expect {
+					post :create, repository: {url: 'valid/url'}
+				}.to_not change(RepositoryWorker.jobs, :size)
+			end
 			it 'runs in the background' do
 				Octokit.stub(:repo).and_return({})
 				Octokit.stub(:rate_limit).and_return(true)
