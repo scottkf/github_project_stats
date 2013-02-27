@@ -3,9 +3,9 @@ README
 
 #### Starting
 
-bundle install
-gem install foreman
-foreman start
+* bundle install
+* gem install foreman
+* foreman start
 
 **Notes**:
 
@@ -15,7 +15,7 @@ foreman start
 
 #### Todo
 
-Add a flag or check redis to see if the thing is currently being processed
-Remove old repos
-Add a progress indicator which can be received through the git class
-Add a notification if you hit the ratelimit
+* Add a flag or check redis to see if the thing is currently being processed
+* Remove old repos
+* Add a progress indicator which can be received through the git class
+* Add a notification if you hit the ratelimit

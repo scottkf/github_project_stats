@@ -13,7 +13,7 @@ class RepositoriesController < ApplicationController
 	def create
 		@repository = Repository.where(repository_params).first_or_create
 		# if it's not valid, show the error
-		return render :index if !@repository.complete && !@repository.valid?
+		return render :index if !@repository.complete && !@repository.persisted?
 		# perform analytics if it hasn't been completed
 		RepositoryWorker.perform_async(@repository.id) unless @repository.complete
 		redirect_to @repository
