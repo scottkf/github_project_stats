@@ -11,7 +11,7 @@ class RepositoriesController < ApplicationController
 	end
 
 	def create
-		@repository = Repository.where(repository_params).first_or_create
+		@repository = Repository.first_or_create(repository_params)
 		# if it's not valid, show the error
 		return render :index if !@repository.valid?
 		# perform analytics if it hasn't been completed

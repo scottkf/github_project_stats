@@ -14,7 +14,8 @@ describe RepositoriesController do
 				expect{post :create, repository: {url: repo.url}}.to_not change{Repository.count}.from(1).to(1)
 			end
 			it 'matches urls' do
-				expect{post :create, repository: {url: "git://github.com/#{repo.url}"}}.to_not change{Repository.count}.from(1).to(1)
+				post :create, repository: {url: "git://github.com/#{repo.url}"}
+				response.should redirect_to(repo)
 			end
 		end
 		context "when repo is valid but unprocessed" do
