@@ -14,13 +14,19 @@ class Repository < ActiveRecord::Base
 		url.match(/([^\/]*)\/([^\/]*)\/?$/).captures rescue nil
 	end
 
+	def self.github(url)
+		author, name = self.parse(url)
+		return url unless author && name
+		[author, name].join("/")
+	end
+
 	def url=(u)
 		write_attribute(:url, u)
 		write_attribute(:url, github) if author && name			
 	end
 
 	def github
-		[author, name].join("/")
+		self.class.github(url)
 	end
 
 	def html_link
