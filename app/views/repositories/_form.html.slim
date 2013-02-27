@@ -1,4 +1,3 @@
 = simple_form_for @repository do |f|
 	= f.input :url, :hint => t(:hint)
-	= f.button :submit, :class => 'btn btn-primary'
-	= submit_tag t(:cancel), :type => :reset, :class => "btn btn-danger"
+	= f.button :submit, t(:process_repo), :class => 'btn btn-primary'

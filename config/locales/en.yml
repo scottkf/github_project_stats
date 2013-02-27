@@ -1,12 +1,12 @@
 en:
   invalid_repo: "Invalid Repository"
   title: 'Github Project Stats'
-  cancel: 'Cancel'
   hint: 'Enter the full github url or the owner and repo name, "scottkf/ability-js"'
   info: 'Ranking of repo by code metrics'
   flooders: 'Top %{num} Flooders'
   cleaners: 'Top %{num} Cleaners'
   complete: 'Completed'
+  process_repo: 'Process Repository'
   processing: 'Processing'
   processing_info: 'Still processing, please wait and the page will reload when finished.'
   home: 'Home'
