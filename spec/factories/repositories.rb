@@ -4,7 +4,13 @@ FactoryGirl.define do
   factory :repository do
     url 'example/Hello'
     after(:build) do |repo|
-    	repo.stub(:valid_url?).and_return true
+    	Octokit.stub(:repo).and_return({})
+    end
+    factory :invalid_repository do
+      url 'test'
+      after(:build) do |repo|
+        Octokit.stub(:repo).and_return(false)
+      end
     end
   end
 end

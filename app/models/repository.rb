@@ -2,13 +2,11 @@ class Repository < ActiveRecord::Base
 	has_many :committers, :through => :commits
 	has_many :commits, :dependent => :destroy
 
+	validate :validate_repo
 	validates :url, uniqueness: true, presence:true
-	validate :valid_url?
 
 	scope :processing, -> {where(complete: false)}
 	scope :complete, -> {where(complete: true)}
-
-	before_validation :commonize_url
 
 	# split apart the url to get the github link
 	def self.parse(url)
@@ -16,9 +14,9 @@ class Repository < ActiveRecord::Base
 		url.match(/([^\/]*)\/([^\/]*)\/?$/).captures rescue nil
 	end
 
-	# to avoid duplicate urls, set them in a common format
-	def commonize_url
-		write_attribute(:url, github) if author && name
+	def url=(u)
+		write_attribute(:url, u)
+		write_attribute(:url, github) if author && name			
 	end
 
 	def github
@@ -43,10 +41,9 @@ class Repository < ActiveRecord::Base
 		a
 	end
 
-	def valid_url?
+	def validate_repo
 		status = Octokit.repo(github) rescue false
-		errors.add(:url, I18n.t(:invalid_repo)) if !status
-		status ? true : false
+		errors.add(:url, I18n.t(:invalid_repo)) unless status
 	end
 
 end

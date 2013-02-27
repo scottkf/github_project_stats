@@ -14,17 +14,14 @@ describe Repository do
 	it '.html_link finishes a githup repo link' do
 		repo.html_link.should == "http://github.com/#{repo.github}"
 	end
-	it '.commonize_url sets a common url' do
+	it '.url= sets a common url' do
 		repo.url = "http://github.com/scottkf/ability-js"
-		repo.commonize_url
 		repo.url.should == "scottkf/ability-js"
 	end
 
-	describe ".valid_url?" do
-		it 'is not false when the repo is valid' do
-			Octokit.stub(:repo).and_return({})
-			repo.valid_url?.should_not == false
-		end
+	it 'is valid only if repo exists' do
+		repo = FactoryGirl.build(:invalid_repository)
+		repo.should_not be_valid
 	end
 
 	describe "#parse" do

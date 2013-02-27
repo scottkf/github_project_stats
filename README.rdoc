@@ -7,3 +7,6 @@ gem install foreman
 foreman start
 
 **Note**: Requires redis for sidekiq to process git repos
+
+#### Todo
+Add a flag or check redis to see if the thing is currently being processed
