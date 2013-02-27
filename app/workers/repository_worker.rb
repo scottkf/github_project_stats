@@ -3,7 +3,7 @@ class RepositoryWorker
 
   def perform(repo_id)
     repo = Repository.find(repo_id)
-    git = Git.new(repo.github_link)
+    git = Git.new(repo.git_link)
     if git.valid?
       # remove old data, could just update it
       repo.commits.delete_all
@@ -13,8 +13,8 @@ class RepositoryWorker
         commit.committer_id = committer.id
         commit.repository_id = repo.id
         commit.save
-        repo.update_column :complete, true if commit.persisted?
       end
+      repo.update_column :complete, true
     end
   end
 end

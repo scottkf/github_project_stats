@@ -6,7 +6,7 @@ class Git
   def clone(repo)
     tmp  = Rails.root.to_s+'/tmp/'+Time.now.to_i.to_s
     grit = Grit::Git.new(tmp)
-    grit.clone({:quiet => false, :verbose => true, :progress => true, :branch => 'master'}, repo, tmp)
+    grit.clone({:quiet => false, :verbose => true, :progress => true, :branch => 'master', :timeout => false}, repo, tmp)
     @repo = Grit::Git.new(tmp+"/.git")
   end
 

@@ -1,1 +1,11 @@
-| Hello!
+.hero-unit
+	h1 Github Stats
+	p= t(:info)
+.row-fluid
+	.span4== render partial: 'form'
+	.span4
+		h3= t(:complete)
+		ul.unstyled== render Repository.complete.limit(20)
+	.span4
+		h3= t(:processing)
+		ul.unstyled== render Repository.processing.limit(20)

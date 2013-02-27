@@ -1,0 +1,5 @@
+li
+	- if repository.complete
+		= link_to repository.name, repository
+	- else
+		= repository.name

@@ -1,0 +1,26 @@
+-title @repository.name
+ul.breadcrumb
+	li
+		= link_to t(:home), root_path
+		span.divider
+			| /
+	li.active
+		= @repository.name
+h1= link_to @repository.name, @repository.html_link
+.row-fluid
+	.span6
+		h3= t(:flooders)
+		- @repository.commits.sum_stats(:additions).limit(10).each do |commit|
+			dl.dl-horizontal
+				dt= t(:author)
+				dd= commit.committer.email
+				dt= t(:additions)
+				dd= commit.additions
+	.span6
+		h3= t(:cleaners)
+		- @repository.commits.sum_stats(:deletions).limit(10).each do |commit|
+			dl.dl-horizontal
+				dt= t(:author)
+				dd= commit.committer.email
+				dt= t(:deletions)
+				dd= commit.deletions

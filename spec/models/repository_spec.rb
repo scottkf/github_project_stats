@@ -8,23 +8,22 @@ describe Repository do
 	it '.github sets up a github repo link' do
 		repo.github.should == "#{repo.author}/#{repo.name}"
 	end
-	it '.link finishes a githup repo link' do
-		repo.github_link.should == "git://github.com/#{repo.github}.git"
+	it '.git_link finishes a githup repo link' do
+		repo.git_link.should == "git://github.com/#{repo.github}.git"
 	end
-	it '.url= resets the repo name and author' do
-		repo.url= nil
-		repo.name.should == nil
-		repo.author.should == nil
+	it '.html_link finishes a githup repo link' do
+		repo.html_link.should == "http://github.com/#{repo.github}"
+	end
+	it '.commonize_url sets a common url' do
+		repo.url = "http://github.com/scottkf/ability-js"
+		repo.commonize_url
+		repo.url.should == "scottkf/ability-js"
 	end
 
 	describe ".valid_url?" do
 		it 'is not false when the repo is valid' do
 			Octokit.stub(:repo).and_return({})
 			repo.valid_url?.should_not == false
-		end
-		it 'is false otherwise'  do
-			Octokit.stub(:repo).and_return(false)
-			repo.valid_url?.should == false
 		end
 	end
 
