@@ -2,15 +2,14 @@ require 'spec_helper'
 
 describe RepositoryWorker do
 	let(:repository){FactoryGirl.create(:repository)}
+	let(:work){RepositoryWorker.new}
 	before(:each) do 
 		Repository.any_instance.stub(:git_link).and_return([Rails.root, 'spec/support/ability-js/.git'].join("/"))
-		RepositoryWorker.perform_async(repository.id)
-		RepositoryWorker.drain
+		work.perform(repository.id)
 	end
 	describe 'processing' do
 		it 'removes old commits' do
-			RepositoryWorker.perform_async(repository.id)
-			expect { RepositoryWorker.drain }.to_not change{repository.commits.size}
+			expect { work.perform(repository.id) }.to_not change{repository.commits.size}
 		end
 		it 'creates the commits' do
 			repository.commits.count.should == 19
