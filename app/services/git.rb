@@ -4,7 +4,7 @@ class Git
   end
 
   def clone(repo)
-    tmp  = Rails.root.to_s+'/tmp/'+Time.now.to_i.to_s
+    tmp  = Rails.root.to_s+"/tmp/#{Rails.env}/#{repo}-#{rand(Time.now.to_i).to_s}"
     grit = Grit::Git.new(tmp)
     grit.clone({quiet: false, verbose: true, progress: true, branch: 'master', timeout: false}, repo, tmp)
     @repo = Grit::Git.new(tmp+"/.git")
