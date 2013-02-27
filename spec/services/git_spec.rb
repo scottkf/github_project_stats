@@ -5,7 +5,7 @@ describe Git do
 	after(:all) {`rm -rf #{[Rails.root, 'tmp/test/*'].join("/")}`}
 	describe ".valid?" do
 		it 'is true if repo exists' do
-			git = Git.new([Rails.root, 'spec/support/ability-js/.git'].join("/"))
+			git = Git.new([Rails.root, 'spec/support/dot_git'].join("/"))
 			git.valid?.should be true
 		end
 		it 'is not otherwise' do
@@ -14,7 +14,7 @@ describe Git do
 		end
 	end
 	describe ".stats" do
-		let(:git){Git.new([Rails.root, 'spec/support/ability-js/.git'].join("/"))}		
+		let(:git){Git.new([Rails.root, 'spec/support/dot_git'].join("/"))}		
 		context "when a valid repo" do
 			# stats are calculated manually
 			it "has the correct number of commits" do

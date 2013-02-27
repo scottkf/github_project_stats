@@ -4,7 +4,7 @@ describe RepositoryWorker do
 	let(:repository){FactoryGirl.create(:repository)}
 	let(:work){RepositoryWorker.new}
 	before(:each) do 
-		Repository.any_instance.stub(:git_link).and_return([Rails.root, 'spec/support/ability-js/.git'].join("/"))
+		Repository.any_instance.stub(:git_link).and_return([Rails.root, 'spec/support/dot_git'].join("/"))
 		work.perform(repository.id)
 	end
 	describe 'processing' do
