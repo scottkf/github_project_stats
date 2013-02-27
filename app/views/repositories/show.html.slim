@@ -26,4 +26,8 @@ h1= link_to @repository.name, @repository.html_link, title: t(:github_link)
 					dt= t(:deletions)
 					dd= commit.deletions
 - else
+	javascript:
+		setTimeout(function() {
+			Turbolinks.visit(window.location)
+		},3000)
 	p.lead= t(:processing_info)
