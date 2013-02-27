@@ -8,4 +8,6 @@ en:
   cleaners: 'Cleaners'
   complete: 'Completed'
   processing: 'Processing'
+  processing_info: 'Still processing, please wait and the page will reload when finished.'
   home: 'Home'
+  github_link: 'Github link'

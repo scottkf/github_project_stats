@@ -6,21 +6,24 @@ ul.breadcrumb
 			| /
 	li.active
 		= @repository.name
-h1= link_to @repository.name, @repository.html_link
-.row-fluid
-	.span6
-		h3= t(:flooders)
-		- @repository.commits.sum_stats(:additions).limit(10).each do |commit|
-			dl.dl-horizontal
-				dt= t(:author)
-				dd= commit.committer.email
-				dt= t(:additions)
-				dd= commit.additions
-	.span6
-		h3= t(:cleaners)
-		- @repository.commits.sum_stats(:deletions).limit(10).each do |commit|
-			dl.dl-horizontal
-				dt= t(:author)
-				dd= commit.committer.email
-				dt= t(:deletions)
-				dd= commit.deletions
+h1= link_to @repository.name, @repository.html_link, title: t(:github_link)
+- if @repository.complete
+	.row-fluid
+		.span6
+			h3= t(:flooders)
+			- @repository.commits.sum_stats(:additions).limit(10).each do |commit|
+				dl.dl-horizontal
+					dt= t(:author)
+					dd= commit.committer.email
+					dt= t(:additions)
+					dd= commit.additions
+		.span6
+			h3= t(:cleaners)
+			- @repository.commits.sum_stats(:deletions).limit(10).each do |commit|
+				dl.dl-horizontal
+					dt= t(:author)
+					dd= commit.committer.email
+					dt= t(:deletions)
+					dd= commit.deletions
+- else
+	p.lead= t(:processing_info)
