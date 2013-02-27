@@ -22,7 +22,12 @@ class Git
       sha = $1
       commit.match(/<(.*)>/)
       author = $1
-      changed, additions, deletions = commit.match(/(\d+) files? changed, (\d+) insertions?\(\+\), (\d+) deletions?\(\-\)/).captures rescue nil
+      commit.match /(\d+) files? changed/
+      changed = $1
+      commit.match /(\d+) insertions?/
+      additions = $1
+      commit.match /(\d+) deletions?/
+      deletions = $1
       {sha: sha, author: author, changed: changed.to_i, additions:additions.to_i, deletions: deletions.to_i}
     end
   end

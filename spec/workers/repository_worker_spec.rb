@@ -16,7 +16,7 @@ describe RepositoryWorker do
 		end
 		it 'can sum the additions' do
 			committer_id = Committer.where(email: 'scott@tesoriere.com').first
-			repository.commits.sum_stats(:additions).where(committer_id: committer_id).first.additions.should == 208
+			repository.commits.sum_stats(:additions).where(committer_id: committer_id).first.additions.should == 419
 		end
 		it 'updates the repo as complete' do
 			repository.reload.complete.should == true

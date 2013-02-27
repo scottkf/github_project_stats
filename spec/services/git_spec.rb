@@ -21,13 +21,13 @@ describe Git do
 				git.stats.size.should == 19
 			end
 			it "shows the correct number of additions" do
-				git.stats.inject(0) {|sum, commit| sum+= commit[:additions] if commit[:author] == "scott@tesoriere.com"; sum}.should == 208
+				git.stats.inject(0) {|sum, commit| sum+= commit[:additions] if commit[:author] == "scott@tesoriere.com"; sum}.should == 419
 			end
 			it "shows the correct number of deletions" do
 				git.stats.inject(0) {|sum, commit| sum+= commit[:deletions] if commit[:author] == "scott@tesoriere.com"; sum}.should == 161
 			end
 			it "shows the correct number of files changed" do
-				git.stats.inject(0) {|sum, commit| sum+= commit[:changed] if commit[:author] == "scott@tesoriere.com"; sum}.should == 24
+				git.stats.inject(0) {|sum, commit| sum+= commit[:changed] if commit[:author] == "scott@tesoriere.com"; sum}.should == 31
 			end
 			it "shows the correct author" do
 				git.stats.second[:author].should == "gautamsarora3@gmail.com"
