@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :committer do
-    email "test@test.com"
+    email "test#{n}@test.com"
   end
 end

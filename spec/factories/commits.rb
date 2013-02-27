@@ -2,7 +2,9 @@
 
 FactoryGirl.define do
   factory :commit do
-    sha "6b71a9974897#{n}#{n}"
+  	committer
+  	repository
+    sha {"6b71a9974897#{n}#{n}"}
     additions {rand(10)}
     deletions {rand(5)}
     files_changed {rand(4)}

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :repository do
-    url 'example/Hello'
+    url "example/Hello"
     after(:build) do |repo|
     	Octokit.stub(:repo).and_return({})
       Octokit.stub(:rate_limit).and_return(true)
