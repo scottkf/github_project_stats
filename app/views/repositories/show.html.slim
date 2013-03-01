@@ -6,7 +6,8 @@ ul.breadcrumb
 			| /
 	li.active
 		= @repository.name
-h1= link_to @repository.name, @repository.html_link, title: t(:github_link)
+h1= link_to @repository.html_link, title: t(:github_link) do
+			= @repository.github
 - if @repository.complete
 	.row-fluid
 		.span6
