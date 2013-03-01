@@ -3,6 +3,8 @@ class CommitWorker
 
   def perform(repo_id, commits, page, total_pages)
     commits.each do |commit|
+      # because sidekiq turns symbols->strings
+      commit = HashWithIndifferentAccess.new commit
       committer = Committer.where(email: commit[:author]).first_or_create
       c = Commit.where(sha: commit[:sha]).first_or_initialize \
         committer_id: committer.id, 
