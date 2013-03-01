@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe RepositoriesController do
+	before(:each) {Stats.stub(:processing).and_return(false)}
 	describe 'POST create' do
 		context "when repo is invalid" do
 			it 'will not create' do

@@ -5,17 +5,11 @@ class RepositoryWorker
     repo = Repository.find(repo_id)
     git = Git.new(repo.git_link)
     if git.valid?
-      git.stats.each do |commit|
-        committer = Committer.where(email: commit[:author]).first_or_create
-        c = Commit.where(sha: commit[:sha]).first_or_initialize \
-          committer_id: committer.id, 
-          repository_id: repo.id, 
-          additions: commit[:additions],
-          deletions: commit[:deletions],
-          files_changed: commit[:changed]
-        c.save
+      per_page = 20
+      total_pages = (git.commits.to_f / per_page).ceil
+      1.upto(total_pages) do |page|
+        CommitWorker.perform_async(repo_id, git.stats(page: page, per_page: per_page), page, total_pages)
       end
-      repo.update_column :complete, true
     end
   end
 end

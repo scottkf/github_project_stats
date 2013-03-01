@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Git do
+	let(:git){Git.new([Rails.root, 'spec/support/dot_git'].join("/"))}		
 	# cleanup repos
 	after(:all) {`rm -rf #{[Rails.root, 'tmp/test/*'].join("/")}`}
 	describe ".valid?" do
@@ -13,8 +14,21 @@ describe Git do
 			git.valid?.should be false
 		end
 	end
+	describe '.commits' do
+		it 'should correctly show the number of commits' do
+			git.commits.should == 19
+		end
+	end
 	describe ".stats" do
-		let(:git){Git.new([Rails.root, 'spec/support/dot_git'].join("/"))}		
+		context "when using pagination" do
+			it 'can choose the page' do
+				git.stats(page:1, per_page:10)[0][:sha].should == "5dc2e28973ebf28d1628cf4b8ff245206f8e6934"
+				git.stats(page:2, per_page:10)[0][:sha].should == "a4f31743d3beb71141c16125089cede5c14d65cf"
+			end
+			it 'can per_page' do
+				git.stats(page:1, per_page:5).size.should == 5
+			end
+		end
 		context "when a valid repo" do
 			# stats are calculated manually
 			it "has the correct number of commits" do

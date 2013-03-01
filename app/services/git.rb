@@ -4,7 +4,7 @@ class Git
   end
 
   def clone(repo)
-    tmp  = Rails.root.to_s+"/tmp/#{Rails.env}/#{rand(Time.now.to_i).to_s}"
+    tmp  = Rails.root.to_s+"/tmp/#{Rails.env}/#{Repository.github(repo)}"
     grit = Grit::Git.new(tmp)
     grit.clone({quiet: false, verbose: true, progress: true, branch: 'master', timeout: false}, repo, tmp)
     @repo = Grit::Git.new(tmp+"/.git")
@@ -15,9 +15,24 @@ class Git
     !@repo.show.blank?
   end
 
-  def stats
+  def commits
     raise I18n.t(:invalid_repo) if !@repo || !valid?
-    @repo.log({shortstat:true, z:true, timeout: false},"master").split("\0").map do |commit|
+    @commits ||= @repo.send("rev-list", {count:true}, 'HEAD').chomp.to_i
+  end
+
+  def stats(*args)
+    raise I18n.t(:invalid_repo) if !@repo || !valid?
+    options = args.extract_options!
+
+    if options[:page]
+      options[:n] = options[:per_page] || 20
+      options[:skip] = options[:n]*(options[:page]-1)
+      options.delete(:page)
+      options.delete(:per_page)
+    end
+    options.merge!({shortstat:true, z:true, timeout: false})
+
+    @repo.log(options,"master").split("\0").map do |commit|
       commit.match(/commit (.*)\n/)
       sha = $1
       commit.match(/<(.*)>/)
